@@ -1,0 +1,61 @@
+import { Response } from "express";
+import { TUser } from "../models/user.model";
+import { redis } from "./redis";
+
+require("dotenv").config();
+
+interface TTokenOptions {
+  expires: Date;
+  maxAge: number;
+  httpOnly: boolean;
+  sameSite: "lax" | "strict" | "none" | undefined;
+  secure?: boolean;
+}
+
+export const sendToken = (user: TUser, statusCode: number, res: Response) => {
+  const accessToken = user.SignAccessToken();
+  const refreshToken = user.SignRefreshToken();
+
+  //upload session to redis
+  redis.set(user._id, JSON.stringify(user) as any);
+
+  //parse environment variable to integrate with fallback values
+  const accessTokenExpire = parseInt(
+    process.env.ACCESS_TOKEN_EXPIRE || "300",
+    10
+  );
+  const refreshTokenExpire = parseInt(
+    process.env.REFRESH_TOKEN_EXPIRE || "1200",
+    10
+  );
+
+  //options for cookies
+  const accessTokenOptions: TTokenOptions = {
+    expires: new Date(Date.now() + accessTokenExpire * 1000),
+    maxAge: accessTokenExpire * 1000,
+    httpOnly: true,
+    sameSite: "lax",
+  };
+
+  const refreshTokenOptions: TTokenOptions = {
+    expires: new Date(Date.now() + refreshTokenExpire * 1000),
+    maxAge: refreshTokenExpire * 1000,
+    httpOnly: true,
+    sameSite: "lax",
+  };
+
+  //only set true in production
+  if (process.env.NODE_ENV === "production") {
+    accessTokenOptions.secure = true;
+  }
+
+  //send cookie
+  res.cookie("access-token", accessToken, accessTokenOptions);
+  res.cookie("refresh-token", refreshToken, refreshTokenOptions);
+
+  res.status(statusCode).json({
+    success: true,
+    user,
+    accessToken,
+  });
+};
