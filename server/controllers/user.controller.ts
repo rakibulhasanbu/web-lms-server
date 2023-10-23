@@ -86,7 +86,8 @@ interface TActivationRequest {
 export const activateUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { activation_token, activation_code } = req.body;
+      const { activation_token, activation_code } =
+        req.body as TActivationRequest;
 
       const newUser: { user: TUser; activationCode: string } = jwt.verify(
         activation_token,
@@ -112,9 +113,9 @@ export const activateUser = CatchAsyncError(
         email,
         password,
       });
+
       res.status(201).json({
         success: true,
-        user,
       });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
