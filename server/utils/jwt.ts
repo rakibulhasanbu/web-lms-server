@@ -50,8 +50,8 @@ export const sendToken = (user: TUser, statusCode: number, res: Response) => {
   }
 
   //send cookie
-  res.cookie("access-token", accessToken, accessTokenOptions);
-  res.cookie("refresh-token", refreshToken, refreshTokenOptions);
+  res.cookie("access_token", accessToken, accessTokenOptions);
+  res.cookie("refresh_token", refreshToken, refreshTokenOptions);
 
   res.status(statusCode).json({
     success: true,

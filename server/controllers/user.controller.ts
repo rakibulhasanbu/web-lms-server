@@ -8,6 +8,7 @@ import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
 import { sendToken } from "../utils/jwt";
+import { redis } from "../utils/redis";
 
 //register user
 interface TRegisterBody {
@@ -140,7 +141,7 @@ export const loginUser = CatchAsyncError(
       }
 
       const user = await userModel.findOne({ email }).select("+password");
-      console.log(user);
+
       if (!user) {
         return next(new ErrorHandler("Invalid email or password", 400));
       }
@@ -162,8 +163,12 @@ export const loginUser = CatchAsyncError(
 export const logoutUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.cookie("access-token", "", { maxAge: 1 });
-      res.cookie("refresh-token", "", { maxAge: 1 });
+      res.cookie("access_token", "", { maxAge: 1 });
+      res.cookie("refresh_token", "", { maxAge: 1 });
+
+      const userId = req.user?._id || "";
+      redis.del(userId);
+
       res.status(200).json({
         success: true,
         message: "Logged out successfully",
