@@ -14,6 +14,7 @@ import {
 } from "../utils/jwt";
 import { redis } from "../utils/redis";
 import { getUserById } from "../services/user.service";
+import cloudinary from "cloudinary";
 
 //register user
 interface TRegisterBody {
@@ -344,6 +345,57 @@ export const updatePassword = CatchAsyncError(
       res.status(201).json({
         success: true,
 
+        user,
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// update user profile
+export const updateProfile = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { avatar } = req.body;
+
+      if (!avatar) {
+        return next(new ErrorHandler("Please provide your image", 400));
+      }
+
+      const userId = req?.user?._id;
+      const user = await userModel.findById(userId);
+
+      if (avatar && user) {
+        //if user already have an avatar
+        if (user?.avatar?.public_id) {
+          await cloudinary.v2.uploader.destroy(user?.avatar?.public_id);
+
+          const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+            folder: "avatars",
+            width: 150,
+          });
+          user.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+          };
+        } else {
+          const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+            folder: "avatars",
+            width: 150,
+          });
+          user.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+          };
+        }
+      }
+
+      await user?.save();
+
+      await redis.set(userId, JSON.stringify(user));
+      res.status(200).json({
+        success: true,
         user,
       });
     } catch (error: any) {
