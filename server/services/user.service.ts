@@ -2,11 +2,11 @@ import { Response } from "express";
 import userModel from "../models/user.model";
 
 //get user by id
-export const getUserById = (id: string, res: Response) => {
-  const user = userModel.findById(id);
+export const getUserById = async (id: string, res: Response) => {
+  const user = await userModel.findById(id);
 
-  return res.status(200).json({
-    message: true,
+  return res.status(201).json({
+    success: true,
     user,
   });
 };

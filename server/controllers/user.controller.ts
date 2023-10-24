@@ -242,3 +242,28 @@ export const getUserInfo = CatchAsyncError(
     }
   }
 );
+
+interface TSocialAuth {
+  name: string;
+  email: string;
+  avatar: string;
+}
+
+// social auth
+export const socialAuth = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email, name, avatar } = req.body as TSocialAuth;
+      const user = await userModel.findOne({ email });
+
+      if (!user) {
+        const newUser = await userModel.create({ name, email, avatar });
+        return sendToken(newUser, 200, res);
+      } else {
+        return sendToken(user, 200, res);
+      }
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
