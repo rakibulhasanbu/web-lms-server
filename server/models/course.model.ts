@@ -8,7 +8,7 @@ interface TComment extends Document {
 }
 
 interface TReview extends Document {
-  user: object;
+  user: TUser;
   rating: number;
   comment: string;
   commentReplies: TComment[];

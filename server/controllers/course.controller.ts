@@ -296,3 +296,66 @@ export const addAnswer = CatchAsyncError(
     }
   }
 );
+
+//add review course
+interface TAddReviewData {
+  review: string;
+  rating: number;
+}
+
+export const addReview = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userCoursesList = req.user?.courses;
+      const courseId = req.params.id;
+      console.log(userCoursesList);
+      //check the course id is already exist in userCourseList id
+      const courseExist = userCoursesList?.some(
+        (course: any) => course.courseId.toString() === courseId
+      );
+
+      if (!courseExist) {
+        return next(
+          new ErrorHandler("Your are not eligible to access these course", 500)
+        );
+      }
+
+      const course = await courseModel.findById(courseId);
+
+      const { review, rating } = req.body as TAddReviewData;
+
+      const reviewData: any = {
+        user: req.user,
+        comment: review,
+        rating,
+      };
+
+      course?.reviews.push(reviewData);
+
+      let avr = 0;
+      course?.reviews.forEach((rev: any) => {
+        avr += rev.rating;
+      });
+
+      if (course) {
+        course.ratings = avr / course.reviews.length;
+      }
+
+      await course?.save();
+
+      const notification = {
+        title: "New review received",
+        message: `${req.user?.name} has given a review in ${course?.name}`,
+      };
+
+      //create notification
+
+      res.status(201).json({
+        success: true,
+        course,
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
