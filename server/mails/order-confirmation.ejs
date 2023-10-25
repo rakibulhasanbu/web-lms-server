@@ -128,6 +128,13 @@
             <td>Order date: <%= order.date %></td>
           </tr>
         </table>
+        <table class="flex.lg">
+          <tr>
+            <td class="first-td">name</td>
+            <td class="first-td">Qty</td>
+            <td class="first-td">Price</td>
+          </tr>
+        </table>
         <table style="width: 90%; margin: auto; display: block">
           <tr>
             <td class="second-td"><%= order.name %></td>
@@ -135,7 +142,7 @@
             <td class="second-td"><%= order.price %></td>
           </tr>
         </table>
-        <table class="table-row" style="border-top: 1px solid #0000002f">
+        <table class="table-row" style="margin-top: -20px">
           <tr>
             <td class="col-2">Subtotal:</td>
             <td class="col-2"><%= order.price %></td>

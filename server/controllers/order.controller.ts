@@ -18,7 +18,7 @@ export const creteOrder = CatchAsyncError(
 
       const user = await userModel.findById(req.user?._id);
       const courseAlreadyExist = user?.courses.some(
-        (course: any) => course.courseId.toString() === courseId.toString()
+        (course: any) => course.courseId === courseId
       );
       if (courseAlreadyExist) {
         return next(
@@ -34,9 +34,8 @@ export const creteOrder = CatchAsyncError(
       const data: any = {
         courseId: course?._id,
         userId: user?._id,
+        paymentInfo,
       };
-
-      newOrder(data, res, next);
 
       const mailData = {
         order: {
@@ -67,19 +66,16 @@ export const creteOrder = CatchAsyncError(
         return next(new ErrorHandler(error.message, 500));
       }
 
-      user?.courses.push(course?._id);
+      user?.courses.push({ courseId: course?._id });
 
       user?.save();
-      const notification = notificationModel.create({
+      await notificationModel.create({
         userId: user?._id,
         title: "New order",
         message: `You have a new order from ${course.name}`,
       });
 
-      res.status(201).json({
-        success: true,
-        order: course,
-      });
+      newOrder(data, res, next);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }
