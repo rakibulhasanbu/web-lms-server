@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order confirmation</title>
+    <style>
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        max-width: 600px;
+        height: 85vh;
+        margin: 0% auto;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #4f5ef1;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #fff;
+      }
+      .message {
+        text-align: center;
+        font-size: 18px;
+        padding: 0 0 10px 0;
+      }
+      .message > h1 {
+        text-align: center;
+        font-weight: 600;
+        font-size: 25px;
+      }
+      .course-info {
+        margin: auto;
+        padding: 20px 0;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        color: #000;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+      }
+      .course-info > h4 {
+        color: #23bd70;
+        font-size: 22px;
+        text-align: center;
+        padding: 0% !important;
+        margin: 0 !important;
+      }
+      .footer {
+        text-align: center;
+        color: #fff;
+        margin-top: 25px;
+      }
+      .footer > p > a {
+        text-decoration: none;
+        display: inline-block;
+        color: #fff;
+      }
+      .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #999;
+      }
+      .flex > h4 {
+        font-weight: normal;
+        margin-bottom: 5px;
+      }
+      .flex.lg {
+        width: 85%;
+        margin: auto;
+        border-bottom: none;
+      }
+      .first-td {
+        text-transform: uppercase;
+        padding: 5px 0;
+        width: 1%;
+        font-weight: 600 !important;
+      }
+      .second-td {
+        font-size: 15px;
+        font-weight: 500 !important;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td {
+        padding: 10px;
+        text-align: center;
+        width: 28.33%;
+      }
+      td.col-2 {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+        margin: 0%;
+      }
+      .m-auto {
+        width: 100%;
+        margin: auto;
+      }
+      .table-row {
+        width: 70%;
+        display: block;
+        margin: auto;
+        padding: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="message">
+        <h1>Your web-lms order is confirmed !!</h1>
+        <p>And we are very exited as you are</p>
+      </div>
+      <div class="course-info">
+        <h4>Here's what you ordered:</h4>
+        <table style="border-bottom: 1px solid #0000002f">
+          <tr>
+            <td>Order #: <%= order._id %></td>
+            <td>Order date: <%= order.date %></td>
+          </tr>
+        </table>
+        <table style="width: 90%; margin: auto; display: block">
+          <tr>
+            <td class="second-td"><%= order.name %></td>
+            <td class="second-td">1</td>
+            <td class="second-td"><%= order.price %></td>
+          </tr>
+        </table>
+        <table class="table-row" style="border-top: 1px solid #0000002f">
+          <tr>
+            <td class="col-2">Subtotal:</td>
+            <td class="col-2"><%= order.price %></td>
+          </tr>
+        </table>
+        <table class="table-row" style="margin-top: -20px">
+          <tr>
+            <td class="col-2">Total:</td>
+            <td class="col-2"><%= order.price %></td>
+          </tr>
+        </table>
+      </div>
+      <div class="footer">
+        <p>
+          You have any questions please contact with our support team at
+          <a href="mailto:rakibulhasanbu@gmail.com">rakibulhasanbu@gmail.com</a>
+        </p>
+        <p>&copy; 2023 web-lms. All rights reserved</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { ErrorMiddleware } from "./middleware/error";
 import userRouter from "./routes/user.route";
 import courseRouter from "./routes/course.route";
+import orderRouter from "./routes/order.route";
 
 export const app = express();
 
@@ -18,8 +19,7 @@ app.use(cookieParser());
 app.use(cors({ origin: process.env.ORIGIN }));
 
 // routes here
-app.use("/api/v1", userRouter);
-app.use("/api/v1", courseRouter);
+app.use("/api/v1", userRouter, courseRouter, orderRouter);
 
 // write test api
 app.get("/test", (req, res, next) => {
