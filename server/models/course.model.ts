@@ -2,8 +2,8 @@ import mongoose, { Model, Schema } from "mongoose";
 
 interface TComment extends Document {
   user: object;
-  comment: string;
-  commentReplies?: TComment[];
+  question: string;
+  questionReplies?: TComment[];
 }
 
 interface TReview extends Document {
@@ -47,10 +47,10 @@ interface TCourse extends Document {
   purchased?: number;
 }
 
-const commentSchema = new Schema<TComment>({
+const questionSchema = new Schema<TComment>({
   user: Object,
-  comment: String,
-  commentReplies: [Object],
+  question: String,
+  questionReplies: [Object],
 });
 
 const reviewSchema = new Schema<TReview>({
@@ -76,7 +76,7 @@ const courseDataSchema = new Schema<TCourseData>({
   videoPlayer: String,
   link: [linkSchema],
   suggestion: String,
-  questions: [commentSchema],
+  questions: [questionSchema],
 });
 
 const courseSchema = new Schema<TCourse>(
