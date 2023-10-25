@@ -61,6 +61,7 @@ const reviewSchema = new Schema<TReview>({
     default: 0,
   },
   comment: String,
+  commentReplies: [Object],
 });
 
 const linkSchema = new Schema<TLink>({
