@@ -20,6 +20,7 @@ export const creteOrder = CatchAsyncError(
       const courseAlreadyExist = user?.courses.some(
         (course: any) => course.courseId === courseId
       );
+
       if (courseAlreadyExist) {
         return next(
           new ErrorHandler("You have already purchase this course", 400)
@@ -49,10 +50,12 @@ export const creteOrder = CatchAsyncError(
           }),
         },
       };
+
       await ejs.renderFile(
         path.join(__dirname, "../mails/order-confirmation.ejs"),
         { order: mailData }
       );
+
       try {
         if (user) {
           await sendMail({
@@ -74,6 +77,12 @@ export const creteOrder = CatchAsyncError(
         title: "New order",
         message: `You have a new order from ${course.name}`,
       });
+
+      if (course.purchased >= 0) {
+        course.purchased = course.purchased + 1;
+      }
+
+      await course?.save();
 
       newOrder(data, res, next);
     } catch (error: any) {

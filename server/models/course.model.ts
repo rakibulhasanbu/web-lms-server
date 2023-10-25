@@ -44,8 +44,8 @@ interface TCourse extends Document {
   prerequisites: { title: string }[];
   reviews: TReview[];
   courseData: TCourseData[];
-  ratings?: number;
-  purchased?: number;
+  ratings: number;
+  purchased: number;
 }
 
 const questionSchema = new Schema<TComment>({
