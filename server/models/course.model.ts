@@ -1,7 +1,8 @@
 import mongoose, { Model, Schema } from "mongoose";
+import { TUser } from "./user.model";
 
 interface TComment extends Document {
-  user: object;
+  user: TUser;
   question: string;
   questionReplies?: TComment[];
 }

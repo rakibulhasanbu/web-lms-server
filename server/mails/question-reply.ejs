@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New reply notification</title>
+    <style type="text/css">
+      /* base style */
+      body {
+        margin: 0%;
+        padding: 0%;
+        min-width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        background-color: #fafafa;
+        color: #222222;
+      }
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.25;
+        text-align: center;
+      }
+      h2 {
+        text-align: center;
+      }
+      p {
+        margin-top: 0%;
+        margin-bottom: 8px;
+      }
+      /* layout  */
+      .email-wrapper {
+        max-width: 600px;
+        margin: 0% auto;
+      }
+      .email-body {
+        padding: 24px;
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-wrapper">
+      <div class="email-body">
+        <p>Hello <%= name %>,</p>
+        <p>
+          A new reply has been added to your question in the video "<%=title%>""
+        </p>
+        <p>
+          Please log in web-lms website to view the question and continue the
+          discussion
+        </p>
+        <p>Thank you for being a part of our community</p>
+      </div>
+    </div>
+  </body>
+</html>
