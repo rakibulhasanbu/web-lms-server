@@ -1,6 +1,7 @@
 import express from "express";
 import {
   activateUser,
+  getAllUsers,
   getUserInfo,
   loginUser,
   logoutUser,
@@ -11,7 +12,7 @@ import {
   updateProfile,
   updateUserInfo,
 } from "../controllers/user.controller";
-import { isAuthenticated } from "../middleware/auth";
+import { authorizeRoles, isAuthenticated } from "../middleware/auth";
 
 const userRouter = express.Router();
 
@@ -34,5 +35,12 @@ userRouter.patch("/update_user_info", isAuthenticated, updateUserInfo);
 userRouter.patch("/update_password", isAuthenticated, updatePassword);
 
 userRouter.patch("/update_avatar", isAuthenticated, updateProfile);
+
+userRouter.patch(
+  "/get_users",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  getAllUsers
+);
 
 export default userRouter;
