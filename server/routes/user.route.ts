@@ -1,6 +1,7 @@
 import express from "express";
 import {
   activateUser,
+  deleteUser,
   getAllUsers,
   getUserInfo,
   loginUser,
@@ -11,6 +12,7 @@ import {
   updatePassword,
   updateProfile,
   updateUserInfo,
+  updateUserRole,
 } from "../controllers/user.controller";
 import { authorizeRoles, isAuthenticated } from "../middleware/auth";
 
@@ -36,11 +38,25 @@ userRouter.patch("/update_password", isAuthenticated, updatePassword);
 
 userRouter.patch("/update_avatar", isAuthenticated, updateProfile);
 
-userRouter.patch(
+userRouter.get(
   "/get_users",
   isAuthenticated,
   authorizeRoles("admin"),
   getAllUsers
+);
+
+userRouter.patch(
+  "/update_role",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  updateUserRole
+);
+
+userRouter.delete(
+  "/delete_user/:id",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  deleteUser
 );
 
 export default userRouter;

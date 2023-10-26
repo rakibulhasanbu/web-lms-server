@@ -6,7 +6,7 @@ const orderRouter = express.Router();
 
 orderRouter.post("/create-order", isAuthenticated, creteOrder);
 
-orderRouter.post(
+orderRouter.get(
   "/get-orders",
   isAuthenticated,
   authorizeRoles("admin"),

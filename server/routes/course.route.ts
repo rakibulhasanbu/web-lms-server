@@ -48,7 +48,7 @@ courseRouter.put(
   addReplyToReview
 );
 
-courseRouter.put(
+courseRouter.get(
   "/get_courses_admin",
   isAuthenticated,
   authorizeRoles("admin"),
