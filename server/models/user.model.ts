@@ -1,13 +1,11 @@
 require("dotenv").config();
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 const emailRegexPattern: RegExp = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
 export interface TUser extends Document {
-  _id: any;
-  isModified(arg0: string): unknown;
   name: string;
   email: string;
   password: string;
