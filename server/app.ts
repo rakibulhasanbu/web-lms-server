@@ -8,6 +8,7 @@ import courseRouter from "./routes/course.route";
 import orderRouter from "./routes/order.route";
 import notificationRoute from "./routes/notification.route";
 import analyticsRoute from "./routes/analytics.route";
+import layoutRoute from "./routes/layout.route";
 
 export const app = express();
 
@@ -27,7 +28,8 @@ app.use(
   courseRouter,
   orderRouter,
   notificationRoute,
-  analyticsRoute
+  analyticsRoute,
+  layoutRoute
 );
 
 // write test api
