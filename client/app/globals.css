@@ -6,6 +6,9 @@
   .dark_gradient {
     @apply dark:bg-gradient-to-b dark:from-gray-900 dark:to-black;
   }
+  .text {
+    @apply text-black dark:text-white;
+  }
 }
 
 :root {

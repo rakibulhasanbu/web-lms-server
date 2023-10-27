@@ -35,19 +35,20 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
             <div className='hidden 800px:flex'>
                 {navItemData && navItemData.map((item, index) => (
                     <Link href={item.url} key={item.name} passHref>
-                        <span className={`${activeItem === index ? "dark:text-[#37a39a] text-[crimson]" : "dark:text-white text-black"} text-lg px-6 font-poppins`}>{item.name}</span>
+                        <span className={`${activeItem === index ? "dark:text-[#37a39a] text-[crimson]" : "text"} text-lg px-6 font-poppins`}>{item.name}</span>
                     </Link>
                 ))}
             </div>
             {isMobile && (
                 <div className='800px:hidden mt-5'>
                     <div className='w-full text-center py-6'>
-                        {navItemData && navItemData.map((item, index) => (
-                            <Link href={item.url} key={item.name} passHref>
-                                <span className={`${activeItem === index ? "dark:text-[#37a39a] text-[crimson]" : "dark:text-white text-black"} text-lg px-6 font-poppins`}>{item.name}</span>
-                            </Link>
-                        ))}
+                        <Link href={'/'} className={`text-[25px] font-poppins font-medium text`}>WEB LMS</Link>
                     </div>
+                    {navItemData && navItemData.map((item, index) => (
+                        <Link href={item.url} key={item.name} passHref>
+                            <div className={`${activeItem === index ? "dark:text-[#37a39a] text-[crimson]" : "text"} text-lg px-6 font-poppins`}>{item.name}</div>
+                        </Link>
+                    ))}
                 </div>
             )}
         </>
