@@ -9,6 +9,9 @@
   .text {
     @apply text-black dark:text-white;
   }
+  .center {
+    @apply flex items-center justify-center;
+  }
 }
 
 :root {
