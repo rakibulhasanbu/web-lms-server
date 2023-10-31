@@ -9,6 +9,9 @@
   .text {
     @apply text-black dark:text-white;
   }
+  .colorText {
+    @apply text-[crimson] dark:text-[#46e256];
+  }
   .center {
     @apply flex items-center justify-center;
   }
