@@ -1,10 +1,12 @@
 'use client'
 
 import { useFormik } from 'formik';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { AiFillGithub, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
+import { useRegisterMutation } from '@/redux/features/auth/authApi';
+import toast from 'react-hot-toast';
 
 interface Props {
     setRoute: (route: string) => void;
@@ -18,14 +20,31 @@ const schema = Yup.object().shape({
 
 const SignUp: FC<Props> = ({ setRoute }) => {
     const [show, setShow] = useState(false);
+    const [register, { isSuccess, data, error }] = useRegisterMutation()
+
+    useEffect(() => {
+        if (isSuccess) {
+            const message = data?.message || "Registration successful";
+            toast.success(message);
+            setRoute('verification');
+        }
+        if (error) {
+            if ("data" in error) {
+                const errorData = error as any;
+                toast.error(errorData?.data?.message)
+            }
+        }
+    }, [data?.message, error, isSuccess, setRoute])
 
     const formik = useFormik({
         initialValues: { name: "", email: "", password: "" },
         validationSchema: schema,
         onSubmit: async ({ name, email, password }) => {
-            setRoute('verification');
+            const data = { name, email, password };
+            await register(data)
         }
     })
+
     const { handleSubmit, values, handleChange, errors, touched } = formik;
     return (
         <div className='w-full select-none'>

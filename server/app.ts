@@ -19,7 +19,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 
 // use cors
-app.use(cors({ origin: process.env.ORIGIN }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // routes here
 app.use(

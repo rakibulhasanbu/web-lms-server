@@ -32,7 +32,6 @@ export const registerUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, email, password } = req.body;
-
       const isEmailExist = await userModel.findOne({ email });
 
       if (isEmailExist) {

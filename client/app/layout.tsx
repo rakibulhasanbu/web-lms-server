@@ -28,7 +28,7 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             {children}
-            <Toaster reverseOrder={false} />
+            <Toaster reverseOrder={false} position='top-right' />
           </ThemeProvider>
         </Providers>
       </body>
