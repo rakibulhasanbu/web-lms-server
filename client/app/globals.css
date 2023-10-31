@@ -42,10 +42,10 @@
     @apply font-poppins text;
   }
   .input {
-    @apply w-full text bg-transparent border rounded h-8 px-2 outline-none mt-2.5 font-poppins;
+    @apply w-full text bg-transparent border rounded h-8 px-2 outline-none mt-1.5 font-poppins;
   }
   .button {
-    @apply center py-2.5 px-6 rounded-full cursor-pointer bg-[#2190ff] hover:bg-[#2190ff]/80 w-full font-poppins font-semibold;
+    @apply center py-2 2xl:py-2.5 px-6 rounded-full cursor-pointer bg-primary hover:bg-primary/80 w-full font-poppins font-semibold;
   }
 }
 
