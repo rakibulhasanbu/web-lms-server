@@ -36,9 +36,9 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
 
     return (
         <div className='w-full relative'>
-            <div className={`${active ? "dark:bg-opacity-50 dark_gradient fixed top-0 left-0 w-full h-20 z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500" : "w-full border-b dark:border-[#ffffff1c] h-20 z-[80] dark:shadow"}`}>
-                <div className='w-[95%] 800px:w-[92%] m-auto py-2 h-full'>
-                    <div className='w-full h-20 flex items-center justify-between p-3'>
+            <div className={`${active ? "dark:bg-opacity-50 dark_gradient fixed top-0 left-0 w-full z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500" : "w-full border-b dark:border-[#ffffff1c] z-[80] dark:shadow"}`}>
+                <div className='layout'>
+                    <div className='w-full flex items-center justify-between p-3'>
                         <div>
                             <Link href={'/'} className={`text-[25px] font-poppins font-medium text`}>WEB LMS</Link>
                         </div>
@@ -46,10 +46,10 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
                             <NavItems activeItem={activeItem} isMobile={false} />
                             <ThemeSwitcher />
                             {/* only for mobile  */}
-                            <div className='800px:hidden'>
+                            <div className='lg:hidden'>
                                 <HiOutlineMenuAlt3 className='cursor-pointer text' size={25} onClick={() => setOpenSidebar(true)} />
                             </div>
-                            <HiOutlineUserCircle className='hidden 800px:block cursor-pointer text' size={25} onClick={() => setOpen(true)} />
+                            <HiOutlineUserCircle className='hidden lg:block cursor-pointer text' size={25} onClick={() => setOpen(true)} />
                         </div>
                     </div>
                 </div>
