@@ -21,7 +21,7 @@
     @apply dark:bg-gradient-to-b dark:from-gray-900 dark:to-black;
   }
   .text {
-    @apply text-black dark:text-white;
+    @apply text-slate-800 dark:text-white;
   }
   .colorText {
     @apply text-[crimson] dark:text-[#46e256];
@@ -31,6 +31,21 @@
   }
   .layout {
     @apply container mx-auto px-2 lg:px-0;
+  }
+  .bg {
+    @apply bg-white dark:bg-slate-900;
+  }
+  .title {
+    @apply text-2xl text font-medium text-center font-poppins py-2;
+  }
+  .label {
+    @apply font-poppins text;
+  }
+  .input {
+    @apply w-full text bg-transparent border rounded h-8 px-2 outline-none mt-2.5 font-poppins;
+  }
+  .button {
+    @apply center py-2.5 px-6 rounded-full cursor-pointer bg-[#2190ff] hover:bg-[#2190ff]/80 w-full font-poppins font-semibold;
   }
 }
 

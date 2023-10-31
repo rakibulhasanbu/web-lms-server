@@ -13,6 +13,9 @@ const config: Config = {
         poppins: ["var(--font-poppins)"],
         Josefin: ["var(--font-Josefin)"],
       },
+      colors: {
+        primary: "#2190ff",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
