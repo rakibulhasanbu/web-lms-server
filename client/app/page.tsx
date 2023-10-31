@@ -12,7 +12,7 @@ const Page: FC<Props> = () => {
   const [activeItem, setActiveItem] = useState(0);
 
   return (
-    <div className=''>
+    <>
       <Heading
         title="Web lms"
         description="web lms is a platform where students can learn important things"
@@ -20,7 +20,7 @@ const Page: FC<Props> = () => {
       />
       <Header open={open} setOpen={setOpen} activeItem={activeItem} />
       <Hero />
-    </div>
+    </>
   );
 };
 
