@@ -23,13 +23,13 @@ const SignUp: FC<Props> = ({ setRoute }) => {
         initialValues: { name: "", email: "", password: "" },
         validationSchema: schema,
         onSubmit: async ({ name, email, password }) => {
-            console.log(name, email, password);
+            setRoute('verification');
         }
     })
     const { handleSubmit, values, handleChange, errors, touched } = formik;
     return (
         <div className='w-full select-none'>
-            <h1 className='title'>Welcome back to web lms</h1>
+            <h1 className='title'>Join to web lms</h1>
             <form onSubmit={handleSubmit}>
                 <div className='w-full mt-4 mb-1'>
                     <label htmlFor="name" className='label'>Enter your name</label>
