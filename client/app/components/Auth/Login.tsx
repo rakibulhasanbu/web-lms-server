@@ -7,6 +7,7 @@ import { AiFillGithub, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/a
 import { FcGoogle } from 'react-icons/fc';
 import { useLoginMutation } from '@/redux/features/auth/authApi';
 import toast from 'react-hot-toast';
+import { signIn } from 'next-auth/react';
 
 interface Props {
     setRoute: (route: string) => void;
@@ -73,8 +74,8 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
                 </div>
                 <p className='text font-poppins pt-4 text-center text-sm'>Or join with</p>
                 <div className='text center gap-6 my-3 [&>*]:cursor-pointer text-3xl'>
-                    <FcGoogle />
-                    <AiFillGithub />
+                    <FcGoogle onClick={() => signIn("google")} />
+                    <AiFillGithub onClick={() => signIn("github")} />
                 </div>
                 <p className='text font-poppins pt-3 text-center text-sm'>
                     Not have any account? <span className='text-primary pl-1 cursor-pointer' onClick={() => setRoute('signUp')}>Sign Up</span>

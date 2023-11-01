@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import NavItems from '../utils/NavItems';
 import { ThemeSwitcher } from '../utils/ThemeSwitcher';
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from 'react-icons/hi'
@@ -11,6 +11,9 @@ import SignUp from './Auth/SignUp';
 import Verification from './Auth/Verification';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react'
+import { useSocialAuthMutation } from '@/redux/features/auth/authApi';
+import toast from 'react-hot-toast';
 
 type Props = {
     open: boolean;
@@ -23,7 +26,28 @@ type Props = {
 const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
     const [openSidebar, setOpenSidebar] = useState(false);
     const [active, setActive] = useState(false);
-    const { user } = useSelector((state: any) => state.auth)
+    const { user } = useSelector((state: any) => state.auth);
+    const { data } = useSession();
+    const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
+    console.log(data);
+
+    useEffect(() => {
+        if (!user) {
+            if (data) {
+                socialAuth({ name: data?.user?.name, email: data?.user?.email, avatar: data?.user?.image })
+            }
+        }
+        if (isSuccess) {
+            toast.success("Log in successfully");
+        }
+        if (error) {
+            if ("data" in error) {
+                const errorData = error as any;
+                toast.error(errorData?.data?.message)
+            }
+        }
+    }, [data, error, isSuccess, socialAuth, user]);
+
 
     if (typeof window !== "undefined") {
         window.addEventListener("scroll", () => {
@@ -42,7 +66,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
             }
         }
     }
-
+    console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET, process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
     return (
         <div className='w-full relative'>
             <div className={`${active ? "dark:bg-opacity-50 dark_gradient fixed top-0 left-0 w-full z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500" : "w-full border-b dark:border-[#ffffff1c] z-[80] dark:shadow"}`}>
