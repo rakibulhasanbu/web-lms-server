@@ -9,6 +9,8 @@ import CustomModal from '../utils/CustomModal';
 import Login from './Auth/Login';
 import SignUp from './Auth/SignUp';
 import Verification from './Auth/Verification';
+import { useSelector } from 'react-redux';
+import Image from 'next/image';
 
 type Props = {
     open: boolean;
@@ -21,6 +23,7 @@ type Props = {
 const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
     const [openSidebar, setOpenSidebar] = useState(false);
     const [active, setActive] = useState(false);
+    const { user } = useSelector((state: any) => state.auth)
 
     if (typeof window !== "undefined") {
         window.addEventListener("scroll", () => {
@@ -55,7 +58,15 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                             <div className='lg:hidden'>
                                 <HiOutlineMenuAlt3 className='cursor-pointer text' size={25} onClick={() => setOpenSidebar(true)} />
                             </div>
-                            <HiOutlineUserCircle className='hidden lg:block cursor-pointer text' size={25} onClick={() => setOpen(true)} />
+                            {
+                                user ? (
+                                    <Link href={'/profile'}>
+                                        <Image width={30} height={30} className='rounded-full cursor-pointer' src={user.avatar ? user.avatar : "https://res.cloudinary.com/dsb7txoad/image/upload/v1698821332/website%20assets/lms/avatar_qukfym.png"} alt='Avatar image' />
+                                    </Link>
+                                ) : (
+                                    <HiOutlineUserCircle className='hidden lg:block cursor-pointer text' size={25} onClick={() => setOpen(true)} />
+                                )
+                            }
                         </div>
                     </div>
                 </div>
