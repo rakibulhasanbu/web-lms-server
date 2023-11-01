@@ -19,7 +19,7 @@ const schema = Yup.object().shape({
 })
 
 const Login: FC<Props> = ({ setRoute, setOpen }) => {
-    const [login, { isSuccess, error, data }] = useLoginMutation();
+    const [login, { isSuccess, error }] = useLoginMutation();
 
     const [show, setShow] = useState(false);
 
