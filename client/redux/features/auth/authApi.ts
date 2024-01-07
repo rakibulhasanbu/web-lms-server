@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/appSlice";
-import { userLoggedIn, userRegistration } from "./authSlice";
+import { userLoggedIn, userLoggedOut, userRegistration } from "./authSlice";
 
 interface RegistrationResponse {
   message: string;
@@ -30,6 +30,7 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
     activation: builder.mutation({
       query: ({ activation_token, activation_code }) => ({
         url: "activate_user",
@@ -37,6 +38,7 @@ export const authApi = apiSlice.injectEndpoints({
         body: { activation_token, activation_code },
       }),
     }),
+
     login: builder.mutation({
       query: ({ email, password }) => ({
         url: "login",
@@ -58,6 +60,7 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
     socialAuth: builder.mutation({
       query: ({ name, email, password }) => ({
         url: "social_auth",
@@ -79,6 +82,20 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    logout: builder.query({
+      query: () => ({
+        url: "logout",
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(_arg, { dispatch }) {
+        try {
+          dispatch(userLoggedOut());
+        } catch (error: any) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 
@@ -87,4 +104,5 @@ export const {
   useActivationMutation,
   useLoginMutation,
   useSocialAuthMutation,
+  useLogoutQuery,
 } = authApi;

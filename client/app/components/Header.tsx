@@ -66,7 +66,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
             }
         }
     }
-    console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET, process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+
     return (
         <div className='w-full relative'>
             <div className={`${active ? "dark:bg-opacity-50 dark_gradient fixed top-0 left-0 w-full z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500" : "w-full border-b dark:border-[#ffffff1c] z-[80] dark:shadow"}`}>
@@ -85,7 +85,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                             {
                                 user ? (
                                     <Link href={'/profile'}>
-                                        <Image width={30} height={30} className='rounded-full cursor-pointer' src={user.avatar ? user.avatar : "https://res.cloudinary.com/dsb7txoad/image/upload/v1698821332/website%20assets/lms/avatar_qukfym.png"} alt='Avatar image' />
+                                        <Image width={32} height={32} className='w-5 h-5 lg:w-8 lg:h-8 rounded-full cursor-pointer' src={user.avatar ? user.avatar.url : "https://res.cloudinary.com/dsb7txoad/image/upload/v1698821332/website%20assets/lms/avatar_qukfym.png"} alt='Avatar image' style={{ border: activeItem === 5 ? "2px solid #37a39a" : "none" }} />
                                     </Link>
                                 ) : (
                                     <HiOutlineUserCircle className='hidden lg:block cursor-pointer text' size={25} onClick={() => setOpen(true)} />

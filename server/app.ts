@@ -9,6 +9,7 @@ import orderRouter from "./routes/order.route";
 import notificationRoute from "./routes/notification.route";
 import analyticsRoute from "./routes/analytics.route";
 import layoutRoute from "./routes/layout.route";
+import { Resend } from "resend";
 
 export const app = express();
 
@@ -33,6 +34,24 @@ app.use(
 );
 
 // write test api
+const resend = new Resend("re_BRHNYNLV_8ngQaHfoYZAPzjyCP275gr1j");
+app.get("/email", async (req, res, next) => {
+  const { data, error } = await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: "rakibulhasansakib33@gmail.com",
+    subject: "Hello World",
+    html: "<strong>it works!</strong>",
+  });
+
+  if (error) {
+    return res.status(400).json(error);
+  }
+  res.status(200).json({
+    success: true,
+    message: "Email send success",
+    data,
+  });
+});
 app.get("/test", (req, res, next) => {
   res.status(200).json({
     success: true,
