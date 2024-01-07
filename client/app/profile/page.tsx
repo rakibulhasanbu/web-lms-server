@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client'
 import { FC, useState } from 'react';
-import Protected from '../hooks/useProtected';
 import Heading from '../utils/Heading';
 import Header from '../components/Header';
 import Profile from './Profile';
 import { useSelector } from 'react-redux';
+import Protected from '../hooks/useProtected';
 
 interface Props { }
 

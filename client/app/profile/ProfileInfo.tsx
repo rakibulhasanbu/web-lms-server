@@ -30,6 +30,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
         }
         fileReader.readAsDataURL(e.target.files[0])
     }
+
     useEffect(() => {
         if (isSuccess) {
             setLoadUser(true)
@@ -52,7 +53,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
         if (editProfileSuccess) {
             toast.success("Name changes successfully!")
         }
-    }, [editProfileSuccess, editProfileError])
+    }, [editProfileSuccess, editProfileError]);
 
     const submitHandler = async (e: any) => {
         e.preventDefault()

@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import avatarDefault from '../../public/avatar.png';
-import { MdLockPerson } from "react-icons/md";
+import { MdLockPerson, MdOutlineAdminPanelSettings } from "react-icons/md";
 import { SiCoursera } from "react-icons/si";
 import { PiCertificateFill } from "react-icons/pi";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import Link from 'next/link';
 
 interface Props {
     user: any;
@@ -29,6 +30,13 @@ const SidebarProfile: FC<Props> = ({ user, active, setActive, logoutHandler, ava
                 <SiCoursera size={20} className="dark:text-slate-100 text-slate-800" />
                 <h4 className='pl-2 hidden lg:block font-poppins font-semibold dark:text-white text'>Enrolled Courses</h4>
             </div>
+            {
+                user?.role === "admin" &&
+                (<Link href="/admin" className={`w-full flex items-center px-3 py-4 cursor-pointer hover:dark:bg-slate-800 hover:bg-slate-300`}>
+                    <MdOutlineAdminPanelSettings size={20} className="dark:text-slate-100 text-slate-800" />
+                    <h4 className='pl-2 hidden lg:block font-poppins font-semibold dark:text-white text'>Admin Dashboard</h4>
+                </Link>)
+            }
             <div onClick={() => setActive(4)} className={`w-full flex items-center px-3 py-4 cursor-pointer hover:dark:bg-slate-800 hover:bg-slate-300 ${active === 4 ? "dark:bg-slate-800 bg-slate-300" : "bg-transparent"}`}>
                 <PiCertificateFill size={20} className="dark:text-slate-100 text-slate-800" />
                 <h4 className='pl-2 hidden lg:block font-poppins font-semibold dark:text-white text'>Course Certificate</h4>
