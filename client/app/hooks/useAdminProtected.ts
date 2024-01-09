@@ -7,9 +7,11 @@ interface TAdminProtectedProps {
   children: ReactNode;
 }
 
-export default function adminProtected({ children }: TAdminProtectedProps) {
+export default function AdminProtected({ children }: TAdminProtectedProps) {
   const { user } = useSelector((state: any) => state.auth);
-  const isAdmin = user?.role === "admin";
+  if (user) {
+    const isAdmin = user?.role === "admin";
 
-  return isAdmin ? children : redirect("/");
+    return isAdmin ? children : redirect("/");
+  }
 }

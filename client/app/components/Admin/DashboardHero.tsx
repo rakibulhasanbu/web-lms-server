@@ -2,12 +2,12 @@ import { FC } from 'react';
 
 interface Props { }
 
-const AdminSidebar: FC<Props> = () => {
+const DashboardHero: FC<Props> = () => {
     return (
         <div className=''>
-            AdminSidebar
+            DashboardHero
         </div>
     );
 };
 
-export default AdminSidebar;
+export default DashboardHero;
