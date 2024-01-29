@@ -1,7 +1,7 @@
 require("dotenv").config();
 import mongoose from "mongoose";
 
-const dbUrl = process.env.DB_URL || "";
+const dbUrl = process.env.DB_URL as string;
 
 const connectDB = async () => {
   try {
@@ -9,7 +9,7 @@ const connectDB = async () => {
       console.log(`Database connected with ${data.connection.host}`);
     });
   } catch (err: any) {
-    console.log(err.message);
+    console.log("err.message", err.message);
     setTimeout(connectDB, 5000);
   }
 };
