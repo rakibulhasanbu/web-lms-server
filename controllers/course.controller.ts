@@ -15,7 +15,7 @@ import notificationModel from "../models/notification.model";
 export const uploadCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = req.body;
+      const { data } = req.body;
       if (Object.keys(data).length === 0) {
         return next(new ErrorHandler("Please provide course data", 400));
       }
@@ -31,6 +31,7 @@ export const uploadCourse = CatchAsyncError(
         };
       }
       createCourse(data, res, next);
+      console.log(data);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }

@@ -20,40 +20,58 @@ const userRouter = express.Router();
 
 userRouter.post("/register", registerUser);
 
-userRouter.post("/activate_user", activateUser);
+userRouter.post("/activate-user", activateUser);
 
 userRouter.post("/login", loginUser);
 
-userRouter.get("/logout", isAuthenticated, logoutUser);
+userRouter.get("/logout", updateAccessToken, isAuthenticated, logoutUser);
 
 userRouter.get("/refresh", updateAccessToken);
 
-userRouter.get("/me", isAuthenticated, getUserInfo);
+userRouter.get("/me", updateAccessToken, isAuthenticated, getUserInfo);
 
-userRouter.post("/social_auth", socialAuth);
+userRouter.post("/social-auth", socialAuth);
 
-userRouter.patch("/update_user_info", isAuthenticated, updateUserInfo);
+userRouter.patch(
+  "/update-user-info",
+  updateAccessToken,
+  isAuthenticated,
+  updateUserInfo
+);
 
-userRouter.patch("/update_password", isAuthenticated, updatePassword);
+userRouter.patch(
+  "/update-password",
+  updateAccessToken,
+  isAuthenticated,
+  updatePassword
+);
 
-userRouter.patch("/update_avatar", isAuthenticated, updateProfile);
+userRouter.patch(
+  "/update-avatar",
+  updateAccessToken,
+  isAuthenticated,
+  updateProfile
+);
 
 userRouter.get(
-  "/get_users",
+  "/get-users",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   getAllUsers
 );
 
 userRouter.patch(
-  "/update_role",
+  "/update-role",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   updateUserRole
 );
 
 userRouter.delete(
-  "/delete_user/:id",
+  "/delete-user/:id",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   deleteUser

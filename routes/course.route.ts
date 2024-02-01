@@ -13,51 +13,72 @@ import {
   uploadCourse,
 } from "../controllers/course.controller";
 import { authorizeRoles, isAuthenticated } from "../middleware/auth";
+import { updateAccessToken } from "../controllers/user.controller";
 
 const courseRouter = express.Router();
 
 courseRouter.post(
-  "/upload_course",
+  "/create-course",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   uploadCourse
 );
 
 courseRouter.patch(
-  "/edit_course/:id",
+  "/edit-course/:id",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   editCourse
 );
 
-courseRouter.get("/get_course/:id", getSingleCourse);
+courseRouter.get("/get-course/:id", getSingleCourse);
 
-courseRouter.get("/get_courses", getAllCourses);
+courseRouter.get("/get-courses", getAllCourses);
 
-courseRouter.get("/get_course_content/:id", isAuthenticated, getCourseByUser);
-
-courseRouter.put("/add_question", isAuthenticated, addQuestion);
-
-courseRouter.put("/add_answer", isAuthenticated, addAnswer);
-
-courseRouter.put("/add_review/:id", isAuthenticated, addReview);
+courseRouter.get(
+  "/get-course-content/:id",
+  updateAccessToken,
+  isAuthenticated,
+  getCourseByUser
+);
 
 courseRouter.put(
-  "/add_reply",
+  "/add-question",
+  updateAccessToken,
+  isAuthenticated,
+  addQuestion
+);
+
+courseRouter.put("/add-answer", updateAccessToken, isAuthenticated, addAnswer);
+
+courseRouter.put(
+  "/add-review/:id",
+  updateAccessToken,
+  isAuthenticated,
+  addReview
+);
+
+courseRouter.put(
+  "/add-reply",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   addReplyToReview
 );
 
 courseRouter.get(
-  "/get_courses_admin",
+  "/get-courses-admin",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   getAllCoursesByAdmin
 );
 
 courseRouter.delete(
-  "/delete_course/:id",
+  "/delete-course/:id",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   deleteCourse
